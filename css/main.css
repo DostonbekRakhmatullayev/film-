@@ -1,0 +1,7 @@
+.film__item {
+  box-shadow: 1px 2px 6px 3px  #fff;
+}
+.film__item:hover {
+  box-shadow: 1px 2px 12px 5px  #fff;
+  /* position: ; */
+}
