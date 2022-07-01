@@ -1,15 +1,17 @@
 //<======Make query selector======>
 let elList = document.querySelector(".js-list");
 var elSelect = document.querySelector(".js-select");
+var elSelect1 = document.querySelector(".js-select1");
 let filmOption = [];
 //<======Date years function======>
 function getDate(format) {
-  var date = new Date(format); 
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`; 
+  var date = new Date(format);
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
 //<======Mirroring the movie function======>
 function ixchamlash(array, node) {
+  node.innerHTML = null
   for (let i = 0; i < array.length; i++) {
     let newItem = document.createElement("li");
     let newStrong = document.createElement("h4");
@@ -31,9 +33,9 @@ function ixchamlash(array, node) {
     newImage.style.display = "block";
     newStrong.style.marginTop = "15px";
     newTime.style.marginBottom = "20px";
-    
+
     newItem.setAttribute("class", "film__item");
-    
+
     newStrong.textContent = `${array[i].title}`;
     newTime.textContent = getDate(array[i].release_date);
     newStrong.textContent = `${array[i].title}`;
@@ -56,28 +58,56 @@ function reflection(mirroring, ddd) {
 
   let tywpe = new Set(filmOption);
 
-  for(let  i of tywpe) {
-  let newOption = document.createElement("option")
+  for (let i of tywpe) {
+    let newOption = document.createElement("option")
     newOption.textContent = i;
-    newOption.setAttribute("value",  i);
+    newOption.setAttribute("value", i);
     ddd.appendChild(newOption);
-    console.log(ddd);
-  } 
+  }
 }
+
+
+elSelect1.addEventListener("change", function () {
+
+  let selectorValue = elSelect1.value;
+  if (selectorValue == "A_Z") {
+    let array = films.sort(function (a, b) {
+      if (a.title > b.title) {
+        return 1;
+      }
+      if (a.title < b.title) {
+        return -1;
+      }
+      return 0;
+    });
+    ixchamlash(array, elList)
+  } else if (selectorValue == "Z_A") {
+    let array = films.sort(function (a, b) {
+      if (a.title < b.title) {
+        return 1;
+      }
+      if (a.title > b.title) {
+        return -1;
+      }
+      return 0;
+    });
+    ixchamlash(array, elList)
+  }
+})
 
 reflection(films, elSelect)
 
 // <=====Print out=====>
 let result = [];
-elSelect.addEventListener("change", function() {
+elSelect.addEventListener("change", function () {
   result = [];
   elList.innerHTML = "";
   let selectVal = elSelect.value;
   films.forEach(kino => {
-    if(kino.genres.includes(selectVal)) {
+    if (kino.genres.includes(selectVal)) {
       result.push(kino);
     }
   })
-  ixchamlash( result, elList, films);
+  ixchamlash(result, elList, films);
 })
 
