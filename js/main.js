@@ -17,6 +17,7 @@ function ixchamlash(array, node) {
     let newStrong = document.createElement("h4");
     let newImage = document.createElement("img");
     let newTime = document.createElement("time");
+    let newText = document.createElement("p");
     //<=======Giving styles=======>
     newItem.style.display = "flex";
     newItem.style.flexDirection = "column";
@@ -31,19 +32,23 @@ function ixchamlash(array, node) {
     newImage.style.borderRadius = "20px"
     newImage.style.height = "300px";
     newImage.style.display = "block";
+    newImage.setAttribute("class", "text")
     newStrong.style.marginTop = "15px";
     newTime.style.marginBottom = "20px";
-
+    newText.style.fontSize = "20px"
+    newText.style.color = "yellow"
     newItem.setAttribute("class", "film__item");
 
     newStrong.textContent = `${array[i].title}`;
     newTime.textContent = getDate(array[i].release_date);
     newStrong.textContent = `${array[i].title}`;
     newImage.src = array[i].poster
+    newText.textContent = array[i].genres.join(' ')
     //<=======Make appendchild=======>
     newItem.appendChild(newImage);
     newItem.appendChild(newStrong);
     newItem.appendChild(newTime);
+    newItem.appendChild(newText);
     node.appendChild(newItem);
   }
 }
