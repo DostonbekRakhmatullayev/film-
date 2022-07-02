@@ -4,11 +4,10 @@ var elSelect = document.querySelector(".js-select");
 var elSelect1 = document.querySelector(".js-select1");
 let filmOption = [];
 //<======Date years function======>
-function getDate(format) {
-  var date = new Date(format);
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+function getDate(format,) {
+  let date = new Date(format);
+  return `${String(date.getDate()).padStart(2,"0")}-${String(date.getMonth() + 1).padStart(2,"0")}-${date.getFullYear()}`;
 }
-
 //<======Mirroring the movie function======>
 function ixchamlash(array, node) {
   node.innerHTML = null
@@ -38,7 +37,7 @@ function ixchamlash(array, node) {
     newText.style.fontSize = "20px"
     newText.style.color = "yellow"
     newItem.setAttribute("class", "film__item");
-
+    
     newStrong.textContent = `${array[i].title}`;
     newTime.textContent = getDate(array[i].release_date);
     newStrong.textContent = `${array[i].title}`;
@@ -60,9 +59,9 @@ function reflection(mirroring, ddd) {
   for (let i = 0; i < mirroring.length; i++) {
     filmOption.push(...mirroring[i].genres)
   }
-
+  
   let tywpe = new Set(filmOption);
-
+  
   for (let i of tywpe) {
     let newOption = document.createElement("option")
     newOption.textContent = i;
@@ -73,7 +72,7 @@ function reflection(mirroring, ddd) {
 
 
 elSelect1.addEventListener("change", function () {
-
+  
   let selectorValue = elSelect1.value;
   if (selectorValue == "A_Z") {
     let array = films.sort(function (a, b) {
