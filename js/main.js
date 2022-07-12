@@ -2,11 +2,12 @@
 let elList = document.querySelector(".js-list");
 var elSelect = document.querySelector(".js-select");
 var elSelect1 = document.querySelector(".js-select1");
+let body = document.querySelector("#body")
 let filmOption = [];
 //<======Date years function======>
 function getDate(format,) {
   let date = new Date(format);
-  return `${String(date.getDate()).padStart(2,"0")}-${String(date.getMonth() + 1).padStart(2,"0")}-${date.getFullYear()}`;
+  return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
 }
 //<======Mirroring the movie function======>
 function ixchamlash(array, node) {
@@ -17,7 +18,11 @@ function ixchamlash(array, node) {
     let newImage = document.createElement("img");
     let newTime = document.createElement("time");
     let newText = document.createElement("p");
+    let newButton = document.createElement("button");
     //<=======Giving styles=======>
+
+    newButton.textContent = "malimot"
+
     newItem.style.display = "flex";
     newItem.style.flexDirection = "column";
     newItem.style.textAlign = "center";
@@ -37,7 +42,11 @@ function ixchamlash(array, node) {
     newText.style.fontSize = "20px"
     newText.style.color = "yellow"
     newItem.setAttribute("class", "film__item");
-    
+
+
+    newButton.setAttribute("data-id", array[i].id);
+    newButton.setAttribute("class", "button_card");
+
     newStrong.textContent = `${array[i].title}`;
     newTime.textContent = getDate(array[i].release_date);
     newStrong.textContent = `${array[i].title}`;
@@ -47,7 +56,9 @@ function ixchamlash(array, node) {
     newItem.appendChild(newImage);
     newItem.appendChild(newStrong);
     newItem.appendChild(newTime);
-    newItem.appendChild(newText);
+
+    newItem.appendChild(newButton);
+
     node.appendChild(newItem);
   }
 }
@@ -59,9 +70,9 @@ function reflection(mirroring, ddd) {
   for (let i = 0; i < mirroring.length; i++) {
     filmOption.push(...mirroring[i].genres)
   }
-  
+
   let tywpe = new Set(filmOption);
-  
+
   for (let i of tywpe) {
     let newOption = document.createElement("option")
     newOption.textContent = i;
@@ -69,10 +80,8 @@ function reflection(mirroring, ddd) {
     ddd.appendChild(newOption);
   }
 }
-
-
 elSelect1.addEventListener("change", function () {
-  
+
   let selectorValue = elSelect1.value;
   if (selectorValue == "A_Z") {
     let array = films.sort(function (a, b) {
@@ -113,5 +122,60 @@ elSelect.addEventListener("change", function () {
     }
   })
   ixchamlash(result, elList, films);
+})
+
+var elButtonCard = document.querySelectorAll(".button_card");
+
+for (let e of elButtonCard) {
+  e.addEventListener("click", function (evt) {
+    evt.preventDefault();
+    let cardId = evt.target.dataset.id;
+
+    let foundFilm = films.find(a => a.id === cardId)
+
+    let newBigBox = document.createElement("div");
+    let newModal = document.createElement("div");
+    let newImg = document.createElement("img");
+    let newBox = document.createElement("div");
+    let newDeleti = document.createElement("button");
+     newDeleti.textContent = "❌"
+    newDeleti.setAttribute("class", "deleti")
+    let newHiding = document.createElement("h4");
+    let newText = document.createElement("p");
+    let newStrong = document.createElement("strong");
+    newBigBox.setAttribute("class", "big__box big__box--active")
+    newModal.setAttribute("class", "modal__wrapper d-flex p-4 bg-dark")
+    newImg.setAttribute("class", "images")
+    newBox.setAttribute("class", "d-block mx-3 text-white")
+
+
+    newHiding.textContent = foundFilm.title;
+    newText.textContent = foundFilm.overview;
+    newStrong.textContent = foundFilm.genres;
+  
+    newImg.setAttribute("src",foundFilm.poster)
+
+
+    newBox.appendChild(newHiding);
+    newBox.appendChild(newText);
+    newBox.appendChild(newStrong);
+
+ 
+    newModal.appendChild(newImg);
+    newModal.appendChild(newBox);
+    newModal.appendChild(newDeleti);
+
+    newBigBox.appendChild(newModal)
+
+    body.appendChild(newBigBox)
+
+  })
+}
+let elBoxBig = document.querySelector(".big__box")
+
+let elDeleti = document.querySelector(".deleti")
+elDeleti.addEventListener("click", function() {
+  elBoxBig.classList.remove("big__box--active")
+
 })
 

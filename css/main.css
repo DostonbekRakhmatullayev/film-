@@ -21,3 +21,36 @@ transform:  scale(1.14);
   justify-content: center;
   align-items: center;
 }
+
+.big__box {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.big__box--active{
+  display: flex;
+}
+
+.modal__wrapper {
+  width: 800px;
+  position: absolute;
+}
+
+.images {
+  width: 300px;
+  height: 400px;
+}
+
+.deleti {
+  position: relative;
+  background-color: transparent;
+  border: none;
+ top: -200px;
+ right: -10px;
+}
