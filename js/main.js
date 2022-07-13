@@ -4,11 +4,13 @@ var elSelect = document.querySelector(".js-select");
 var elSelect1 = document.querySelector(".js-select1");
 let body = document.querySelector("#body")
 let filmOption = [];
+
 //<======Date years function======>
 function getDate(format,) {
   let date = new Date(format);
   return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
 }
+
 //<======Mirroring the movie function======>
 function ixchamlash(array, node) {
   node.innerHTML = null
@@ -36,14 +38,13 @@ function ixchamlash(array, node) {
     newImage.style.borderRadius = "20px"
     newImage.style.height = "300px";
     newImage.style.display = "block";
-    newImage.setAttribute("class", "text")
     newStrong.style.marginTop = "15px";
     newTime.style.marginBottom = "20px";
     newText.style.fontSize = "20px"
     newText.style.color = "yellow"
+    
+    newImage.setAttribute("class", "text")
     newItem.setAttribute("class", "film__item");
-    
-    
     newButton.setAttribute("data-id", array[i].id);
     newButton.setAttribute("class", "button_card");
     
