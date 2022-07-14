@@ -21,7 +21,7 @@
 }
 
 .text:hover {
-transform:  scale(1.14);
+  transform:  scale(1.14);
 }
 
 .box__select {
@@ -41,7 +41,8 @@ transform:  scale(1.14);
   min-height: 100vh;
   background-color: rgba(0, 0, 0, 0.6);
 }
-.big__box--active{
+
+.big__box--active {
   display: flex;
 }
 
@@ -55,8 +56,8 @@ transform:  scale(1.14);
   padding: 5px 15px; 
   border: 2px solid  #fff;
   border-radius: 10px;
-margin-bottom: 20px;
-transition: all 0.5s ease;
+  margin-bottom: 20px;
+  transition: all 0.5s ease;
 }
 
 .button__bookmark:hover {
@@ -64,15 +65,17 @@ transition: all 0.5s ease;
   background-color: black;
   color: #fff;
 }
-.button__bookmark--active{
+
+.button__bookmark--active {
   background-color: red;
 }
+
 .button_card {
   padding: 5px 15px; 
   border: 2px solid  #fff;
   border-radius: 10px;
-margin-bottom: 20px;
-transition: all 0.5s ease;
+  margin-bottom: 20px;
+  transition: all 0.5s ease;
 }
 
 .button_card:hover {
@@ -90,15 +93,33 @@ transition: all 0.5s ease;
   position: relative;
   background-color: transparent;
   border: none;
- top: -200px;
- right: -10px;
+  top: -200px;
+  right: -10px;
+}
+
+ul {
+  list-style-type: none;
 }
 
 .js-bookmark {
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  padding-top: 15px;
+  padding-bottom: 10px;
   color: black;
-  width: 400px;
+  width: 600px;
   overflow: auto;
   height: 300px;
+  font-weight: bolder;
+  font-size: 18px;
   background-color: rgb(255, 255, 255);
+}
 
+.deleti-btn {
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  color: red;
+  font-weight: bolder;
 }
