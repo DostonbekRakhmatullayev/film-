@@ -3,6 +3,8 @@ let elList = document.querySelector(".js-list");
 var elSelect = document.querySelector(".js-select");
 var elSelect1 = document.querySelector(".js-select1");
 let body = document.querySelector("#body")
+let elBookmarkLest = document.querySelector(".js-bookmark")
+
 let filmOption = [];
 
 //<======Date years function======>
@@ -11,19 +13,26 @@ function getDate(format,) {
   return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
 }
 
+let bookmarkList = []
+
 //<======Mirroring the movie function======>
 function ixchamlash(array, node) {
   node.innerHTML = null
   for (let i = 0; i < array.length; i++) {
+    array[i].bookmark = false
+
     let newItem = document.createElement("li");
     let newStrong = document.createElement("h4");
     let newImage = document.createElement("img");
     let newTime = document.createElement("time");
     let newText = document.createElement("p");
     let newButton = document.createElement("button");
+    let newBookmark = document.createElement("button");
+    let newBox = document.createElement("div");
+
     //<=======Giving styles=======>
-    
-    newButton.textContent = "malimot"
+    newBookmark.textContent = "Bookmark"
+    newButton.textContent = "Modal"
     
     newItem.style.display = "flex";
     newItem.style.flexDirection = "column";
@@ -45,8 +54,14 @@ function ixchamlash(array, node) {
     
     newImage.setAttribute("class", "text")
     newItem.setAttribute("class", "film__item");
+
+    newBookmark.setAttribute("data-nom", array[i].id)
     newButton.setAttribute("data-id", array[i].id);
+    
     newButton.setAttribute("class", "button_card");
+
+    newBookmark.setAttribute("class", "button__bookmark");
+    if(array[i].bookmark) newBookmark.setAttribute("class", "button__bookmark--active");
     
     newStrong.textContent = `${array[i].title}`;
     newTime.textContent = getDate(array[i].release_date);
@@ -57,14 +72,30 @@ function ixchamlash(array, node) {
     newItem.appendChild(newImage);
     newItem.appendChild(newStrong);
     newItem.appendChild(newTime);
-    
-    newItem.appendChild(newButton);
+
+    newBox.appendChild(newBookmark)
+    newBox.appendChild(newButton)
+    newItem.appendChild(newBox);
     
     node.appendChild(newItem);
   }
 }
 
 ixchamlash(films, elList)
+
+const getBookmarkMovies =((array, node) => {
+  node.innerHTML = ""
+  array.forEach(e => {
+    let newBookmarkItem = document.createElement("li");
+    let newBookmarkBtn = document.createElement("button");
+    newBookmarkItem.textContent = e.title
+    newBookmarkBtn.textContent = "Deleti"
+    newBookmarkBtn.setAttribute("class", "deleti-btn")
+    newBookmarkBtn.setAttribute("data-id", e.id)
+    newBookmarkItem.appendChild(newBookmarkBtn)
+    node.appendChild(newBookmarkItem)
+  })
+})
 
 // <======Reflection, Mirroring=======>
 function reflection(mirroring, ddd) {
@@ -126,6 +157,30 @@ elSelect.addEventListener("change", function () {
 })
 
 var elButtonCard = document.querySelectorAll(".button_card");
+// yangi ul ga push qilish
+elList.addEventListener("click", function(evt) {
+  if(evt.target.matches(".button__bookmark")){
+   let filmId = evt.target.dataset.nom
+   
+   let findedFilm = films.find(e => e.id === filmId)
+   
+   if(!bookmarkList.includes(findedFilm)) {
+    bookmarkList.push(findedFilm)
+    getBookmarkMovies(bookmarkList, elBookmarkLest)
+
+   }
+  }
+})
+
+elBookmarkLest.addEventListener("click", function(evt) {
+  if(evt.target.matches(".deleti-btn")) {
+   let boookId = evt.target.dataset.id;
+
+    let findedBtn = bookmarkList.findIndex(e => e.id === boookId)
+    bookmarkList.splice(findedBtn, 1)
+    getBookmarkMovies(bookmarkList, elBookmarkLest)
+  }
+})
 
 for (let e of elButtonCard) {
   e.addEventListener("click", function (evt) {
@@ -170,6 +225,7 @@ for (let e of elButtonCard) {
     newBigBox.appendChild(newModal)
     
     body.appendChild(newBigBox)
+
     newDeleti.addEventListener("click", function() {
       newBigBox.classList.remove("big__box--active")
     })
@@ -177,3 +233,32 @@ for (let e of elButtonCard) {
 }
 
 
+// let elBookmarkLest = document.querySelector(".js-bookmark")
+// let elBookmark = document.querySelectorAll(".button__bookmark")
+
+// let allseleccted = []
+
+// f 
+
+// function deleteSelected (arr, title){
+//   let index = arr.findIndex(m => m.title === title)
+
+//   arr.splice(index, 1)
+//   renderSeleccted(arr, elBookmarkLest)
+// }
+
+// for(let e of elBookmark) {
+//   e.addEventListener("click", function(evt) {
+//     evt.preventDefault()
+//     elBookmarkLest.innerHTML = null
+//     let id = evt.target.dataset.nom
+//     let foundFilms = films.find(a => a.id === id);
+//     foundFilms.bookmark = true
+
+//     ixchamlash(films)
+//     // if( !allseleccted.includes(foundFilms)){
+//     //   allseleccted.push(foundFilms)
+//     // }
+//     // renderSeleccted(allseleccted, elBookmarkLest)
+//   })
+// }
