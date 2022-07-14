@@ -12,8 +12,8 @@ function getDate(format,) {
   let date = new Date(format);
   return `${String(date.getDate()).padStart(2, "0")}-${String(date.getMonth() + 1).padStart(2, "0")}-${date.getFullYear()}`;
 }
-
-let bookmarkList = [];
+let localList = JSON.parse(window.localStorage.getItem("bookmarkList"))
+let bookmarkList = localList || [];
 
 //<======Mirroring the movie function======>
 function ixchamlash(array, node) {
@@ -82,6 +82,7 @@ ixchamlash(films, elList);
 
 const getBookmarkMovies =((array, node) => {
   node.innerHTML = "";
+  window.localStorage.setItem("bookmarkList", JSON.stringify(bookmarkList));
   array.forEach(e => {
     let newBookmarkItem = document.createElement("li");
     let newBookmarkBtn = document.createElement("button");
@@ -94,6 +95,7 @@ const getBookmarkMovies =((array, node) => {
   })
 })
 
+getBookmarkMovies(bookmarkList, elBookmarkLest)
 // <======Reflection, Mirroring=======>
 function reflection(mirroring, ddd) {
   for (let i = 0; i < mirroring.length; i++) {
@@ -225,3 +227,5 @@ for (let e of elButtonCard) {
     })
   })
 }
+
+
